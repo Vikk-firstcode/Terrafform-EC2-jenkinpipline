@@ -1,17 +1,21 @@
 ---
 - hosts: all
+  become: yes  # This enables privilege (become_user: root  # You can specify a different user here if needed)
   tasks:
     - name: install httpd
       package:
         name: httpd
         state: installed
+
     - name: configure
-      shell: "echo Hello Vikram CI/CD Test run  !! > /var/www/html/index.html"
+      shell: "echo Hello Vikram CI/CD Test run !! > /var/www/html/index.html"
+
     - name: start service
       service:
         name: httpd
         state: started
+
     - name: add user
       user:
-        name: raman
+        name: vikram
         state: absent
