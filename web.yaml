@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: install httpd
+      package:
+        name: httpd
+        state: installed
+    - name: configure
+      shell: "echo Hello Vikram CI/CD Test run  !! > /var/www/html/index.html"
+    - name: start service
+      service:
+        name: httpd
+        state: started
+    - name: add user
+      user:
+        name: raman
+        state: absent
