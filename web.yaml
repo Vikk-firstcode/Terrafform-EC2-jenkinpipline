@@ -1,21 +1,39 @@
 ---
 - hosts: all
-  become: yes  # This enables privilege (become_user: root  # You can specify a different user here if needed)
+  gather_facts: no
+  become: yes  # Enable privilege escalation
+  vars:
+    ssh_key_path: "/home/{{ ansible_ssh_user }}/.ssh/id_rsa"  # Specify the SSH key file path
+
   tasks:
-    - name: install httpd
+    - name: Generate SSH key pair
+      user:
+        name: "{{ ansible_ssh_user }}"
+        generate_ssh_key: yes
+        ssh_key_file: "{{ ssh_key_path }}"  # Use variable for path
+
+    - name: Ensure .ssh directory exists
+      file:
+        path: "/home/{{ ansible_ssh_user }}/.ssh"
+        state: directory
+        owner: "{{ ansible_ssh_user }}"
+        mode: '0700'
+
+    - name: Copy public key to remote servers
+      authorized_key:
+        user: "{{ ansible_ssh_user }}"
+        state: present
+        key: "{{ lookup('file', ssh_key_path + '.pub') }}"  # Use the correct path for the public key
+
+    - name: Install httpd
       package:
         name: httpd
         state: installed
 
-    - name: configure
-      shell: "echo Hello Vikram CI/CD Test run !! > /var/www/html/index.html"
+    - name: Configure HTTP index.html
+      shell: "echo 'Hello Vikram CI/CD Test run !!' > /var/www/html/index.html"
 
-    - name: start service
+    - name: Start HTTP service
       service:
         name: httpd
         state: started
-
-    - name: add user
-      user:
-        name: vikram
-        state: absent
