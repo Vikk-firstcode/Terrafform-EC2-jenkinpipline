@@ -43,3 +43,9 @@ openjdk version "17.0.8" 2023-07-18
 OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
 OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
 
+# get the password for jenkin 
+Do cat /var/lib/jenkins/secrets/initialAdminPassword
+Jenkin default page server external ip with port 8080
+
+
+
