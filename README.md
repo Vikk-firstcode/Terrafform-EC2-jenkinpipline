@@ -17,7 +17,7 @@ git clone https://github.com/ramannkhanna2/Devops-terraform-ansible.git
 
 ---- creation of jenkins server :
     
-CentOS 7 (x86_64) - with Updates HVM
+ubuntu    OS 7 (x86_64) - with Updates HVM
 
 sg :22,80,8080
 
@@ -84,7 +84,7 @@ attach the role to jenkins server
 
 =================================================
 
---- install ansible on centos host machine 
+--- install ansible on ubuntu    os host machine 
 
 sudo yum install epel-release
 sudo yum install ansible
@@ -94,7 +94,7 @@ sudo yum install ansible
    uncomment host_key_checking=FALSE
 
 
---- create a keypair on centos hostmachine to import a keypair named raman-import on aws virginia region to authenticate :
+--- create a keypair on ubuntu    os hostmachine to import a keypair named raman-import on aws virginia region to authenticate :
 ssh-keygen -t rsa
 -- import the public key to virginia in creation raman-import key
 
